@@ -1,6 +1,3 @@
-# Student-registration-system
-Java CLI project for managing student course registration
-
 # Student Registration System (CLI)
 
 This is a console-based Java application that allows students to register, drop, and view courses, while admins can manage course offerings.
