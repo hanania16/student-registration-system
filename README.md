@@ -1,4 +1,9 @@
 # Student Registration System (CLI)
+## Team Members
+- Hanania Meseret
+- Lielt Leul
+- Martha Habtamu
+- Yeabsira Mitiku
 
 This is a console-based Java application that allows students to register, drop, and view courses, while admins can manage course offerings.
 
