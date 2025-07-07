@@ -22,8 +22,3 @@ This is a console-based Java application that allows students to register, drop,
 - File I/O (BufferedWriter, FileReader)
 - Collections: List, Set, Map
 
-## 🚀 How to Run
-
-1. Clone the repo  
-   ```bash
-   git clone https://github.com/your-username/student-registration-system.git
