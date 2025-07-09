@@ -2,6 +2,10 @@
 
 package exception;
 
-public class InvalidLoginException {
-    
+public class InvalidLoginException extends Throwable {
+    public InvalidLoginException(String message) {
+        super(message);
+    }
 }
+    
+
