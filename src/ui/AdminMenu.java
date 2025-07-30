@@ -2,10 +2,12 @@
 package ui;
 
 import java.util.Scanner;
+import service.CourseService;
 import service.UserService;
 
 public class AdminMenu {
     private static Scanner scanner = new Scanner(System.in);
+    private static CourseService courseService = new CourseService();
     private static UserService userService = new UserService();
 
     public static void show() {
@@ -23,7 +25,7 @@ public class AdminMenu {
                     String name = scanner.nextLine();
                     System.out.print("Course ID: ");
                     String id = scanner.nextLine();
-                    userService.createCourse(name, id);
+                    courseService.createCourse(name, id);
                     break;
                 case "2":
                     System.out.print("New Username: ");
@@ -33,6 +35,7 @@ public class AdminMenu {
                     System.out.print("Role (admin/student): ");
                     String role = scanner.nextLine();
                     userService.createUser(username, password, role);
+
                     break;
                 case "3":
                     return;
