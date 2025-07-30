@@ -3,5 +3,11 @@
 package model;
 
 public class Course {
-    
-}
+
+    public <T> ClassValue<T> getEnrolledStudents() {
+    }
+
+
+    public int getMaxCapacity() {
+    }
+  }

@@ -9,7 +9,7 @@ import java.util.List;
 public class RegistrationService {
 
     public void register(Student student, Course course) throws CourseFullException {
-            List<Student> enrolledStudents = course.getEnrolledStudents();
+            List<Student> enrolledStudents = (List<Student>) course.getEnrolledStudents();
             if (enrolledStudents.size() >= course.getMaxCapacity()) {
                 throw new CourseFullException("Course is full: " + course.getCourseName());
             }
@@ -23,6 +23,10 @@ public class RegistrationService {
             student.getRegisteredCourses().add(course);
 
             System.out.println("Student registered successfully.");
+
+            if (student != null && course != null) {
+                register(student, course); // reuse existing method
+            }
         }
 
     public void drop(Student student, Course course) {
