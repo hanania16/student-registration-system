@@ -22,6 +22,7 @@ public class MainMenu {
                 case "1":
                     handleLogin();
                     break;
+                    
                 case "2":
                     FileLogger.log("System exited.");
                     System.exit(0);
