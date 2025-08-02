@@ -1,39 +1,66 @@
-// For login, register user, get user by email.
 package dao;
 
 import Abstract.User;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.sql.*;
 
 public class UserDAO {
-    private List<User> users = new ArrayList<>(); // Mock database
+    private Database db;
 
-
-
+    public UserDAO(Database db) {
+        this.db = db;
+    }
 
     public void save(User user) {
-        users.add(user);
-        System.out.println("User saved: " + user.getUsername());
+        try (Connection conn = db.getConnection()) {
+            String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getRole());
+            stmt.executeUpdate();
+            System.out.println("User saved to DB: " + user.getUsername());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public User findByUsername(String username) {
+        try (Connection conn = db.getConnection()) {
+            String sql = "SELECT * FROM users WHERE username = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
 
-        for (User user : users) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            // u is actually Student or Admin, a concrete class
-
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("role")
+                );
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return null; // if no user found with that username
+        return null;
     }
+
     public void update(User user) {
-        // For in-memory list, the object is already updated
-        System.out.println("User updated: " + user.getUsername());
+        try (Connection conn = db.getConnection()) {
+            String sql = "UPDATE users SET password = ?, role = ? WHERE username = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, user.getPassword());
+            stmt.setString(2, user.getRole());
+            stmt.setString(3, user.getUsername());
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
+                System.out.println("User updated in DB: " + user.getUsername());
+            } else {
+                System.out.println("User not found for update: " + user.getUsername());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
 }
-
-
-
-
