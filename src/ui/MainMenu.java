@@ -1,9 +1,9 @@
 package ui;
 
-import service.AuthService;
 import Abstract.User;
 import exception.InvalidLoginException;
 import java.util.Scanner;
+import service.AuthService;
 
 public class MainMenu {
 
@@ -24,13 +24,13 @@ public class MainMenu {
             try {
                 currentUser = authService.login(username, password);
                 loggedIn = true;
-                System.out.println("✅ Login successful as " + currentUser.getRole());
+                System.out.println("✅ Logged in as: " + currentUser.getRole());
             } catch (InvalidLoginException e) {
                 System.out.println("❌ " + e.getMessage());
             }
         }
 
-        // Redirect based on role
+        // Pass logged-in user to menu
         RegistrationMenu regMenu = new RegistrationMenu(currentUser);
         regMenu.showMenu();
     }
