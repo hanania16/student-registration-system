@@ -1,6 +1,9 @@
-// Student tries to access admin features.
 package exception;
 
-public class UnauthorizedAccessException {
-    
+public class UnauthorizedAccessException extends RuntimeException {
+    public UnauthorizedAccessException(String message) {
+        super(message);
+    }
 }
+
+

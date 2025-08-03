@@ -1,64 +1,31 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Course {
     private int id;
-    private String courseName;
-    private int maxCapacity;
+    private String name;
+    private int capacity;
+    private int enrolled;
 
-    private List<Student> enrolledStudents;
-
-    public Course(int id, String courseName, int maxCapacity) {
+    public Course(int id, String name, int capacity, int enrolled) {
         this.id = id;
-        this.courseName = courseName;
-        this.maxCapacity = maxCapacity;
-        this.enrolledStudents = new ArrayList<>();
+        this.name = name;
+        this.capacity = capacity;
+        this.enrolled = enrolled;
     }
 
-    // Getters
-    public int getId() {
-        return id;
-    }
+    // Getters and setters
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public int getCapacity() { return capacity; }
+    public int getEnrolled() { return enrolled; }
 
-    public String getCourseName() {
-        return courseName;
-    }
+    public void setId(int id) { this.id = id; }
+    public void setName(String name) { this.name = name; }
+    public void setCapacity(int capacity) { this.capacity = capacity; }
+    public void setEnrolled(int enrolled) { this.enrolled = enrolled; }
 
-    public int getMaxCapacity() {
-        return maxCapacity;
-    }
-
-    public List<Student> getEnrolledStudents() {
-        return enrolledStudents;
-    }
-
-    // Setters
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public void setMaxCapacity(int maxCapacity) {
-        this.maxCapacity = maxCapacity;
-    }
-
-    public void setEnrolledStudents(List<Student> enrolledStudents) {
-        this.enrolledStudents = enrolledStudents;
-    }
-
-    // Add/remove students
-    public void enrollStudent(Student student) {
-        if (!enrolledStudents.contains(student)) {
-            enrolledStudents.add(student);
-        }
-    }
-
-    public void dropStudent(Student student) {
-        enrolledStudents.remove(student);
+    // Helper
+    public boolean isFull() {
+        return enrolled >= capacity;
     }
 }
