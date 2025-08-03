@@ -1,7 +1,11 @@
 package ui;
 
 import Abstract.User;
+import exception.CourseFullException;
+import model.Course;
 import service.RegistrationService;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class RegistrationMenu {
@@ -22,11 +26,14 @@ public class RegistrationMenu {
         }
     }
 
+    /** ===================== STUDENT MENU ===================== */
     private void studentMenu(Scanner sc) {
-        // show student options: view courses, register, drop
-    }
-
-    private void adminMenu(Scanner sc) {
-        // show admin options: add/remove courses, view all registrations
-    }
-}
+        while (true) {
+            System.out.println("\n=== Student Menu ===");
+            System.out.println("1. View Available Courses");
+            System.out.println("2. Register for a Course");
+            System.out.println("3. Drop a Course");
+            System.out.println("4. View My Courses");
+            System.out.println("0. Logout");
+            System.out.print("Choose: ");
+            String choi
