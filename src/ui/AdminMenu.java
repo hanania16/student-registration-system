@@ -1,18 +1,25 @@
-// 	Admin adds/removes courses, views all students.
+//  Admin adds/removes courses, views all students.
 package ui;
 
 import java.util.Scanner;
-import service.CourseService;
+import dao.CourseDAO;
 import service.UserService;
+import util.FileLogger;
+
 
 public class AdminMenu {
     private static Scanner scanner = new Scanner(System.in);
-    private static CourseService courseService = new CourseService();
     private static UserService userService = new UserService();
+    private static CourseDAO courseDAO = new CourseDAO();
+    
+public class AdminMenu {
+    private static Scanner scanner = new Scanner(System.in);
+    private static UserService userService = new UserService();
+    private static CourseDAO courseDAO = new CourseDAO();
 
     public static void show() {
         while (true) {
-            System.out.println("\n🧑‍💼 Admin Menu");
+            System.out.println("\n🧑💼 Admin Menu");
             System.out.println("1. Add new course");
             System.out.println("2. Create new user");
             System.out.println("3. Logout");
@@ -45,3 +52,10 @@ public class AdminMenu {
         }
     }
 }
+
+    
+
+
+
+
+
