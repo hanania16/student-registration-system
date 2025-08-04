@@ -4,7 +4,10 @@ import java.time.LocalDate;
 
 public class Registration {
     private int id;             // Registration ID (primary key in DB)
-    private int studentId;      // ID of the student
+    private int studentId;
+    private String student_name;
+    private String student_pass;
+    private String depart;
     private int courseId;       // ID of the course
     private LocalDate date;     // When they registered
 

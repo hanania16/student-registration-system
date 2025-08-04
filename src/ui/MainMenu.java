@@ -36,5 +36,7 @@ public class MainMenu {
         regMenu.showMenu();
 
         System.out.println("you have been logged out");
+        
+
     }
 }
