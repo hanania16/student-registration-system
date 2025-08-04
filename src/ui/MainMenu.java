@@ -33,5 +33,7 @@ public class MainMenu {
         // Pass logged-in user to menu
         RegistrationMenu regMenu = new RegistrationMenu(currentUser);
         regMenu.showMenu();
+
+        
     }
 }

@@ -1,11 +1,10 @@
 package dao;
 
-import model.Course;
-import util.Database;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import model.Course;
+import util.Database;
 
 public class CourseDAO {
 
@@ -21,8 +20,8 @@ public class CourseDAO {
             if (rs.next()) {
                 return new Course(
                         rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getInt("capacity"),
+                       rs.getString("course_name"),
+                        rs.getInt("max_capacity"),
                         rs.getInt("department_id")
                 );
             }
@@ -34,7 +33,7 @@ public class CourseDAO {
 
     // Add a new course
     public void addCourse(Course course) {
-        String sql = "INSERT INTO courses (name, capacity, department_id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO courses (course_name, max_capacity, department_id) VALUES (?, ?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -60,8 +59,8 @@ public class CourseDAO {
             while (rs.next()) {
                 courses.add(new Course(
                         rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getInt("capacity"),
+                        rs.getString("course_name"),
+                        rs.getInt("max_capacity"),
                         rs.getInt("department_id")
                 ));
             }

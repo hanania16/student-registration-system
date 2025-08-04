@@ -2,10 +2,12 @@ package ui;
 
 import Abstract.User;
 import dao.CourseDAO;
+import dao.StudentDAO;
 import exception.CourseFullException;
 import java.util.List;
 import java.util.Scanner;
 import model.Course;
+import model.Student;
 import service.RegistrationService;
 
 public class RegistrationMenu {
@@ -58,16 +60,27 @@ public class RegistrationMenu {
             System.out.println("\n=== Admin Menu ===");
             System.out.println("1. View All Courses");
             System.out.println("2. Add Course");
-            System.out.println("3. Delete Course");
-            System.out.println("4. Logout");
+            System.out.println("3. Add Students");
+            System.out.println("4. Delete Course");
+            System.out.println("5. Delete Student");
+            System.out.println("6. View All Students");
+            System.out.println("7. Logout");
             System.out.print("Choose: ");
             choice = sc.nextInt();
 
             switch (choice) {
                 case 1 -> showAllCourses();
                 case 2 -> addCourse(sc);
-                case 3 -> deleteCourse(sc);
-                case 4 -> System.out.println("Logging out...");
+                case 3 -> addStudent(sc);
+                case 4 -> deleteCourse(sc);
+                case 5 -> {
+                        System.out.print("Enter Student ID to delete: ");
+                        int id = sc.nextInt();
+                        deleteStudent(id);
+                        System.out.println("Student with id " + id + " deleted successfully");
+                }
+                case 6 -> showAllStudents();
+                case 7 -> System.out.println("Logging out...");
                 default -> System.out.println("Invalid choice.");
             }
         } while (choice != 4);
@@ -131,6 +144,46 @@ public class RegistrationMenu {
         Course newCourse = new Course(0, name, capacity, deptId);
         courseDAO.addCourse(newCourse);
     }
+
+private void addStudent(Scanner sc) {
+    sc.nextLine(); // clear buffer
+    System.out.print("Student username: ");
+    String username = sc.nextLine();
+    System.out.print("Password: ");
+    String password = sc.nextLine();
+    System.out.print("Role: ");
+    String role = sc.nextLine();
+    System.out.print("Department ID: ");
+    int deptId = sc.nextInt();
+
+    var newStudent = new Student(0, username, password, role, deptId);
+    StudentDAO studentDAO = new StudentDAO(); // create instance
+    studentDAO.addStudent(newStudent); // call instance method
+}
+private void deleteStudent(int id) {
+    StudentDAO studentDAO = new StudentDAO();
+    if (studentDAO.deleteStudent(id)) {
+        System.out.println("✅ Student deleted successfully.");
+    } else {
+        System.out.println("❌ No student found with ID " + id);
+    }
+}
+
+private void showAllStudents() {
+    StudentDAO studentDAO = new StudentDAO();
+    var students = studentDAO.getAllStudents();
+
+    if (students.isEmpty()) {
+        System.out.println("No students found.");
+        return;
+    }
+
+    System.out.println("\n--- Registered Students ---");
+    for (Student s : students) {
+        System.out.printf("ID: %d | Username: %s | Role: %s\n",
+                s.getId(), s.getUsername(), s.getRole());
+    }
+}
 
     // ====================== DELETE COURSE (ADMIN) ======================
     private void deleteCourse(Scanner sc) {

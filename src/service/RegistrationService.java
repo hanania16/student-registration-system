@@ -1,13 +1,12 @@
 package service;
 
 import dao.CourseDAO;
-import model.Course;
-import util.Database;
 import exception.CourseFullException;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import model.Course;
+import util.Database;
 
 public class RegistrationService {
     private CourseDAO courseDAO = new CourseDAO();
@@ -109,8 +108,8 @@ public class RegistrationService {
             while (rs.next()) {
                 courses.add(new Course(
                         rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getInt("capacity"),
+                        rs.getString("course_name"),
+                        rs.getInt("max_capacity"),
                         rs.getInt("department_id"),
                         rs.getInt("enrolled_count")
                 ));
