@@ -10,10 +10,10 @@ public class ConfigReader {
 
     static {
         try {
-            FileInputStream fis = new FileInputStream("src/util/db.properties");
+            FileInputStream fis = new FileInputStream("src/config/db.properties");
             properties.load(fis);
         } catch (IOException e) {
-            System.out.println("❌ Could not load database config file.");
+            System.out.println(" Could not load database config file.");
             e.printStackTrace();
         }
     }

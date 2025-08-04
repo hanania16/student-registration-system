@@ -1,13 +1,10 @@
-/*Abstract class with shared fields: id, 
- name, email, password. Both Student 
-and Admin extend this.*/
 package Abstract;
 
-public class User {
-    protected  int id;
-    protected  String username;
-    protected  String password;
-    protected  String role;
+public abstract class User {
+    private int id;
+    private String username;
+    private String password;
+    private String role;
 
     public User(int id, String username, String password, String role) {
         this.id = id;
@@ -15,13 +12,12 @@ public class User {
         this.password = password;
         this.role = role;
     }
+
     public int getId() { return id; }
     public String getUsername() { return username; }
     public String getPassword() { return password; }
     public String getRole() { return role; }
 
-    // Set password
-    public void setPassword(String newPassword) {
-        this.password = newPassword;
-    }
+    public void setPassword(String password) { this.password = password; }
+    public void setRole(String role) { this.role = role; }
 }

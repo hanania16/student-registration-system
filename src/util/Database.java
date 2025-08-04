@@ -5,18 +5,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() {
         try {
-            Class.forName(ConfigReader.get("db.driver")); // Load driver
-        } catch (ClassNotFoundException e) {
-            System.out.println("❌ PostgreSQL Driver not found!");
+            Class.forName(ConfigReader.get("db.driver"));
+            return DriverManager.getConnection(
+                    ConfigReader.get("db.url"),
+                    ConfigReader.get("db.username"),
+                    ConfigReader.get("db.password")
+            );
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+            return null;
         }
-
-        String url = ConfigReader.get("db.url");
-        String username = ConfigReader.get("db.username");
-        String password = ConfigReader.get("db.password");
-
-        return DriverManager.getConnection(url, username, password);
     }
 }

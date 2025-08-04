@@ -2,61 +2,26 @@ package model;
 
 public class Course {
     private int id;
-    private String name;
-    private int capacity;
+    private String courseName;
+    private int maxCapacity;
+    private int departmentId;
     private int enrolledCount;
 
-    public Course(int id, String name, int capacity, int enrolledCount) {
+    public Course(int id, String courseName, int maxCapacity, int departmentId) {
         this.id = id;
-        this.name = name;
-        this.capacity = capacity;
+        this.courseName = courseName;
+        this.maxCapacity = maxCapacity;
+        this.departmentId = departmentId;
+    }
+
+    public Course(int id, String courseName, int maxCapacity, int departmentId, int enrolledCount) {
+        this(id, courseName, maxCapacity, departmentId);
         this.enrolledCount = enrolledCount;
     }
 
-    // Getters
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public int getEnrolledCount() {
-        return enrolledCount;
-    }
-
-    // Setters
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public void setEnrolledCount(int enrolledCount) {
-        this.enrolledCount = enrolledCount;
-    }
-
-    // Helper: Check if course is full
-    public boolean isFull() {
-        return enrolledCount >= capacity;
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-            "ID: %d | Name: %s | Capacity: %d | Enrolled: %d",
-            id, name, capacity, enrolledCount
-        );
-    }
+    public int getId() { return id; }
+    public String getCourseName() { return courseName; }
+    public int getMaxCapacity() { return maxCapacity; }
+    public int getDepartmentId() { return departmentId; }
+    public int getEnrolledStudentsCount() { return enrolledCount; }
 }
