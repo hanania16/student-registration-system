@@ -43,7 +43,6 @@ public class RegistrationMenu {
             choice = sc.nextInt();
 
             switch (choice) {
-<<<<<<< HEAD
                 case "1":
                     viewAvailableCourses();
                     break;
@@ -81,14 +80,6 @@ public class RegistrationMenu {
                     return;
                 default:
                     System.out.println("⚠ Invalid choice.");
-=======
-                case 1 -> showAllCourses();
-                case 2 -> showStudentCourses();
-                case 3 -> registerForCourse(sc);
-                case 4 -> dropCourse(sc);
-                case 5 -> System.out.println("Logging out...");
-                default -> System.out.println("Invalid choice.");
->>>>>>> 5f23f718a4a3710fa7c264d4a356023885da86fc
             }
         } while (choice != 5);
     }
