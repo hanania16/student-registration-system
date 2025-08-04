@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package model;
 
 import Abstract.User;
@@ -16,3 +17,5 @@ public class Admin extends User {
         System.out.println("0. Logout");
     }
 }
+=======
+>>>>>>> f4fd8323e3e006535a6130b71e69a8ecb64df773

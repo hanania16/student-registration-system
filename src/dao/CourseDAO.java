@@ -1,5 +1,6 @@
 package dao;
 
+<<<<<<< HEAD
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,5 +84,20 @@ public class CourseDAO {
             e.printStackTrace();
         }
         return false;
+=======
+import model.Course;
+import java.util.HashMap;
+import java.util.Map;
+
+public class CourseDAO {
+    private static Map<String, Course> courseMap = new HashMap<>();
+
+    public boolean save(Course course) {
+        if (courseMap.containsKey(course.getCourseId())) {
+            return false; // already exists
+        }
+        courseMap.put(course.getCourseId(), course);
+        return true;
+>>>>>>> f4fd8323e3e006535a6130b71e69a8ecb64df773
     }
 }

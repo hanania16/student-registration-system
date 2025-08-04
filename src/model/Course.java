@@ -1,6 +1,7 @@
 package model;
 
 public class Course {
+<<<<<<< HEAD
     private int id;
     private String courseName;
     private int maxCapacity;
@@ -24,4 +25,21 @@ public class Course {
     public int getMaxCapacity() { return maxCapacity; }
     public int getDepartmentId() { return departmentId; }
     public int getEnrolledStudentsCount() { return enrolledCount; }
+=======
+    private String courseId;
+    private String courseName;
+
+    public Course(String courseId, String courseName) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+>>>>>>> f4fd8323e3e006535a6130b71e69a8ecb64df773
 }
