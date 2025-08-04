@@ -2,50 +2,122 @@
 package service;
 
 import dao.CourseDAO;
-import model.Course;
-import exceptions.CourseFullException;
-import interfaces.Registrable;
-
+import exception.CourseFullException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+import model.Course;
+import util.Database;
 
-public class RegistrationService implements Registrable {
-    private CourseDAO courseDAO;
+public class RegistrationService {
+    private CourseDAO courseDAO = new CourseDAO();
 
-    public RegistrationService() {
-        this.courseDAO = new CourseDAO(); // Could also inject this
+    // Get all courses
+    public List<Course> getAllCourses() {
+        return courseDAO.getAllCourses();
     }
 
-    @Override
-    public boolean register(int studentId, int courseId) {
-        Course course = null;
-
-        // Load all courses to find the one
-        List<Course> courses = courseDAO.getAllCourses();
-        for (Course c : courses) {
-            if (c.getId() == courseId) {
-                course = c;
-                break;
+    // Register a student to a course
+    public void registerStudentToCourse(int studentId, int courseId) throws CourseFullException {
+        try (Connection conn = Database.getConnection()) {
+            // Check if already registered
+            String checkSql = "SELECT * FROM registrations WHERE student_id = ? AND course_id = ?";
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                checkStmt.setInt(1, studentId);
+                checkStmt.setInt(2, courseId);
+                ResultSet rs = checkStmt.executeQuery();
+                if (rs.next()) {
+                    System.out.println("⚠ You are already registered for this course.");
+                    return;
+                }
             }
-        }
 
-        if (course == null) {
-            System.out.println("❌ Course not found.");
-            return false;
-        }
+            // Get course details
+            Course course = courseDAO.findById(courseId);
+            if (course == null) {
+                System.out.println("❌ Course not found.");
+                return;
+            }
 
-        if (course.isFull()) {
-            throw new CourseFullException("Course is full. Try another course.");
-        }
+            // Check capacity
+            if (course.getEnrolledStudentsCount() >= course.getMaxCapacity()) {
+                throw new CourseFullException("Course is already full!");
+            }
 
-        return courseDAO.registerStudent(studentId, courseId);
+            // Register student
+            String sql = "INSERT INTO registrations (student_id, course_id) VALUES (?, ?)";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, studentId);
+                stmt.setInt(2, courseId);
+                stmt.executeUpdate();
+            }
+
+            // Update enrolled_count in courses table
+            String updateSql = "UPDATE courses SET enrolled_count = enrolled_count + 1 WHERE id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(updateSql)) {
+                stmt.setInt(1, courseId);
+                stmt.executeUpdate();
+            }
+
+            System.out.println("✅ Successfully registered to course: " + course.getCourseName());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    @Override
-    public boolean drop(int studentId, int courseId) {
-        return courseDAO.dropStudent(studentId, courseId);
+    // Drop a course
+    public void dropCourse(int studentId, int courseId) {
+        try (Connection conn = Database.getConnection()) {
+            // Remove from registrations
+            String sql = "DELETE FROM registrations WHERE student_id = ? AND course_id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, studentId);
+                stmt.setInt(2, courseId);
+                int rows = stmt.executeUpdate();
+                if (rows > 0) {
+                    // Reduce enrolled count
+                    String updateSql = "UPDATE courses SET enrolled_count = enrolled_count - 1 WHERE id = ?";
+                    try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                        updateStmt.setInt(1, courseId);
+                        updateStmt.executeUpdate();
+                    }
+                    System.out.println("✅ Dropped from course successfully.");
+                } else {
+                    System.out.println("⚠ You are not registered in this course.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public List<Course> viewRegisteredCourses(int studentId) {
-        return courseDAO.getRegisteredCourses(studentId);
+    // View student's registered courses
+    public List<Course> getStudentCourses(int studentId) {
+        List<Course> courses = new ArrayList<>();
+        String sql = """
+            SELECT c.* FROM courses c
+            JOIN registrations r ON c.id = r.course_id
+            WHERE r.student_id = ?
+        """;
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, studentId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                courses.add(new Course(
+                        rs.getInt("id"),
+                        rs.getString("course_name"),
+                        rs.getInt("max_capacity"),
+                        rs.getInt("department_id"),
+                        rs.getInt("enrolled_count")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return courses;
     }
 }
