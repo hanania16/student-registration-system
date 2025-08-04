@@ -44,8 +44,8 @@ public class RegistrationMenu {
                     break;
                 case "2":
                     System.out.print("Enter Course ID to register: ");
-                    int courseIdReg = Integer.parseInt(sc.nextLine());
                     try {
+                    int courseIdReg = Integer.parseInt(sc.nextLine());
                         if (regService.register(currentUser.getId(), courseIdReg)) {
                             System.out.println("✅ Registration successful!");
                         } else {
@@ -57,11 +57,15 @@ public class RegistrationMenu {
                     break;
                 case "3":
                     System.out.print("Enter Course ID to drop: ");
+                    try {
                     int courseIdDrop = Integer.parseInt(sc.nextLine());
                     if (regService.drop(currentUser.getId(), courseIdDrop)) {
                         System.out.println("✅ Course dropped.");
                     } else {
                         System.out.println("⚠ Could not drop course.");
+                    }
+                    } catch (NumberFormatException e){
+                        System.out.println("❌ Invalid course ID.");
                     }
                     break;
                 case "4":

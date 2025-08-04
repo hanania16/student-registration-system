@@ -5,6 +5,7 @@ import exception.InvalidLoginException;
 import java.util.Scanner;
 import service.AuthService;
 
+
 public class MainMenu {
 
     private AuthService authService = new AuthService();
@@ -33,5 +34,7 @@ public class MainMenu {
         // Pass logged-in user to menu
         RegistrationMenu regMenu = new RegistrationMenu(currentUser);
         regMenu.showMenu();
+
+        System.out.println("you have been logged out");
     }
 }
