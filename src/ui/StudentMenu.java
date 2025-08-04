@@ -10,7 +10,7 @@ public class StudentMenu {
 
     public static void show(String username) {
         while (true) {
-            System.out.println("\n👩‍🎓 Student Menu");
+            System.out.println("\n👩🎓 Student Menu");
             System.out.println("1. Register for course");
             System.out.println("2. Drop course");
             System.out.println("3. View registered courses");
@@ -39,7 +39,4 @@ public class StudentMenu {
             }
         }
     }
-}
-
-    
 }
