@@ -150,11 +150,11 @@ Student Menu
 
 📜 Team Contributions
 
-Hanania Meseret – Implemented authentication, PostgreSQL integration, and business logic.
+Hanania Meseret – Implemented authentication, PostgreSQL integration, and business logic, 2 classes from model.
 
 Lielt Leul – Designed DAO classes, handled SQL queries, and database schema.
 
-Martha Habtamu – Implementing the RegistrationService class, Creating and using custom exceptions.
+Martha Habtamu – Implementing the RegistrationService class, Creating and using custom exceptions,2 classes from model.
 
 Yeabsira Mitiku – uilt UI menus, handled input/output, and connected menus to services.
 anaged logging system, and, exception handling.
