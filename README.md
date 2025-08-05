@@ -38,7 +38,16 @@ The system includes:
 - Register for a course
 - Drop a course
 
+> 📝 **Note:** There is **no feature to add departments via the application**.  
+> Departments are already pre-inserted in the database.  
+> During registration, the student must choose from one of the existing department IDs and names:
 
+```sql
+id |          name
+----+------------------------
+ 1  | Computer Science
+ 2  | Information Technology
+ 3  | Electrical Engineering
 
 ## 📂 Project Structure
 src/
@@ -89,7 +98,16 @@ CREATE TABLE courses (
     department_id INT REFERENCES departments(id)
 );
 
+    CREATE TABLE registrations (
+    id SERIAL PRIMARY KEY,
+    student_id INT NOT NULL REFERENCES students(id) ON DELETE CASCADE,
+    course_id INT NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+    registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 ```</pre>
+
+
+
 🚀 Setup & Execution
 
 1️⃣ Clone the repository
