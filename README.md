@@ -150,7 +150,7 @@ Student Menu
 
 📜 Team Contributions
 
-Hanania Meseret – Implemented authentication, PostgreSQL integration, and business logic, 2 classes from model.
+Hanania Meseret – Implemented authentication, PostgreSQL integration, and business logic,1 classe from model.
 
 Lielt Leul – Designed DAO classes, handled SQL queries, and database schema.
 
