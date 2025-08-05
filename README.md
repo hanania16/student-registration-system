@@ -1,100 +1,160 @@
 # 🎓 Student Registration System (CLI)
 
-## 📌 Team Members
-- Hanania Meseret
-- Lielt Leul
-- Martha Habtamu
-- Yeabsira Mitiku
+## 👥 Team Members
+- Hanania Meseret 
+- Lielt Leul 
+- Martha Habtamu 
+- Yeabsira Mitiku 
 
 ---
 
-## 📖 Overview
-This is a **console-based Java application** that allows **students** to register for, drop, and view courses, while **admins** can manage course offerings.
+## 📖 Project Overview
+The Student Registration System is a console-based Java application designed to allow students to register for, drop, and view courses, while admins can manage course offerings and students.
 
-The system supports:
+The system includes:
 - Role-based login (Student / Admin)
-- Course management
-- Student registration management
+- Course management by admins
+- Student course registration
 - Database persistence with PostgreSQL
 - File logging for activity tracking
-- Exception handling for better reliability
+- Custom exception handling for robust execution
 
 ---
 
 ## ✨ Features
 
-### **For Admins**
+### 🔹 Admin
 - Login with admin credentials
 - View all available courses
-- Add a new course
-- Delete a course
+- Add new courses
+- Delete courses
 - View all registered students
-- Delete a student
+- Delete students
 
-### **For Students**
+### 🔹 Student
 - Login with student credentials
 - View available courses
 - View registered courses
 - Register for a course
 - Drop a course
 
----
 
-## 🛠 Technologies Used
-
-- **Java** (Object-Oriented Programming)
-- **JDBC** for database operations
-- **PostgreSQL** (recommended) or SQLite
-- **File I/O** (BufferedWriter, FileReader) for logging
-- **Collections**: List, Set, Map
-- **Custom Exceptions** for better error handling
-
----
 
 ## 📂 Project Structure
 src/
 │
 ├── Abstract/ # Abstract base classes
-├── dao/ # Data Access Objects (JDBC)
-├── exception/ # Custom exceptions
+├── dao/ # Data Access Objects (JDBC queries)
+├── exception/ # Custom exception classes
 ├── model/ # Data models (User, Student, Admin, Course)
 ├── service/ # Business logic
-├── ui/ # CLI menu classes
-├── util/ # Utility classes (Database connection, Config)
+├── ui/ # CLI menus for Admin & Student
+├── util/ # Database connection and configuration
 └── Main.java # Entry point
+lib/ # JDBC driver (.jar)
+out/ # Compiled .class files
 
-## How to Run
+<pre> ```
 
-1. Compile
+## 🗄 Database Tables
+The system requires the following PostgreSQL tables:
+
+-- Departments table
+CREATE TABLE departments (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+-- Users table (admins and students)
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    role VARCHAR(20) NOT NULL, -- 'ADMIN' or 'STUDENT'
+    department_id INT REFERENCES departments(id)
+);
+
+-- Students table (linked to users)
+CREATE TABLE students (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id) ON DELETE CASCADE,
+    course_id INT REFERENCES courses(id) ON DELETE SET NULL
+);
+
+-- Courses table
+CREATE TABLE courses (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    capacity INT NOT NULL,
+    department_id INT REFERENCES departments(id)
+);
+
+```</pre>
+🚀 Setup & Execution
+
+1️⃣ Clone the repository
+git clone https://github.com/hanania16/student-registration-system.git
+
+cd student-registration-system
+
+2️⃣ Add PostgreSQL JDBC driver
+Download from:
+PostgreSQL JDBC Driver
+Place it in the lib/ folder.
+
+3️⃣ Configure database connection
+Edit your Database.java or db.properties file:
+
+properties
+db.driver=org.postgresql.Driver
+db.url=jdbc:postgresql://localhost:5432/Student_RegistrationDB
+db.username=postgres
+db.password=1234567
+
+4️⃣ Compile
 javac -cp "lib/*;src" -d out src/Abstract/*.java src/dao/*.java src/model/*.java src/ui/*.java src/util/*.java src/service/*.java src/Main.java
 
-2. Run
+5️⃣ Run
 java -cp "lib/*;out" Main
+🔑 Default Login Credentials
 
-## 🔑 Login Information
-Admin Login
+Admin
 Username: admin1
 Password: adminpass
 
-Student Login
+Student
 Username: john
 Password: studpass
 
-## 📌 Usage Instructions
+📌 Menu Navigation
 <prev>
 Admin Menu
-    === Admin Menu ===
-    1. View All Courses
-    2. Add Course
-    3. Delete Course
-    4. View All Students
-    5. Delete Student
-    6. Logout
+=== Admin Menu ===
+1. View All Courses
+2. Add Course
+3. Delete Course
+4. View All Students
+5. Delete Student
+6. Logout
+</prev>
 
 Student Menu
-    === Student Menu ===
-    1. View Available Courses
-    2. View My Courses
-    3. Register for a Course
-    4. Drop a Course
-    5. Logout
+<prev>
+=== Student Menu ===
+1. View Available Courses
+2. View My Courses
+3. Register for a Course
+4. Drop a Course
+5. Logout
+</prev>
+
+📜 Team Contributions
+
+Hanania Meseret – Implemented authentication, PostgreSQL integration, and business logic.
+
+Lielt Leul – Designed DAO classes, handled SQL queries, and database schema.
+
+Martha Habtamu – Implementing the RegistrationService class, Creating and using custom exceptions.
+
+Yeabsira Mitiku – uilt UI menus, handled input/output, and connected menus to services.
+anaged logging system, and, exception handling.
