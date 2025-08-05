@@ -38,17 +38,7 @@ The system includes:
 - Register for a course
 - Drop a course
 
----
 
-## 🛠 Technologies Used
-- Java (Object-Oriented Programming)
-- JDBC – database connectivity
-- PostgreSQL
-- File I/O – logging via BufferedWriter & FileReader
-- Collections – List
-- Custom Exceptions – better error messages and handling
-
----
 
 ## 📂 Project Structure
 src/
