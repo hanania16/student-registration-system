@@ -1,10 +1,8 @@
-// 	Interface with method like registerCourse(Course c)
 package interfaces;
 
+import Abstract.User;
 import exception.InvalidLoginException;
 
 public interface Authenticatable {
-    boolean login(String username, String password) throws InvalidLoginException;
-};
-
-
+    User login(String username, String password) throws InvalidLoginException;
+}

@@ -157,22 +157,12 @@ Admin Menu
 </prev>
 
 Student Menu
-<prev>
-=== Student Menu ===
-1. View Available Courses
-2. View My Courses
-3. Register for a Course
-4. Drop a Course
-5. Logout
-</prev>
+    === Student Menu ===
+    1. View Available Courses
+    2. View My Courses
+    3. Register for a Course
+    4. Drop a Course
+    5. Logout
 
-📜 Team Contributions
-
-Hanania Meseret – Implemented authentication, PostgreSQL integration, and business logic,1 classe from model.
-
-Lielt Leul – Designed DAO classes, handled SQL queries, and database schema.
-
-Martha Habtamu – Implementing the RegistrationService class, Creating and using custom exceptions,2 classes from model.
-
-Yeabsira Mitiku – uilt UI menus, handled input/output, and connected menus to services.
-anaged logging system, and, exception handling.
+javac -cp "lib/*;src" -d out src/Abstract/*.java src/dao/*.java src/model/*.java src/ui/*.java src/util/*.java src/service/*.java src/Main.java
+java -cp "lib/*;out" Main
