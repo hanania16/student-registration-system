@@ -98,3 +98,6 @@ Student Menu
     3. Register for a Course
     4. Drop a Course
     5. Logout
+
+javac -cp "lib/*;src" -d out src/Abstract/*.java src/dao/*.java src/model/*.java src/ui/*.java src/util/*.java src/service/*.java src/Main.java
+java -cp "lib/*;out" Main

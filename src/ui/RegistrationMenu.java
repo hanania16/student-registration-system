@@ -18,7 +18,7 @@ public class RegistrationMenu {
     public RegistrationMenu(User user) {
         this.currentUser = user;
     }
-
+ 
     public void showMenu() {
         Scanner sc = new Scanner(System.in);
 
@@ -47,7 +47,10 @@ public class RegistrationMenu {
                 case 2 -> showStudentCourses();
                 case 3 -> registerForCourse(sc);
                 case 4 -> dropCourse(sc);
-                case 5 -> System.out.println("Logging out...");
+                case 5 -> {System.out.println("Logging out...");
+                            return; // exit studentMenu method → goes back to Main
+                         }
+
                 default -> System.out.println("Invalid choice.");
             }
         } while (choice != 5);
@@ -80,10 +83,13 @@ public class RegistrationMenu {
                         System.out.println("Student with id " + id + " deleted successfully");
                 }
                 case 6 -> showAllStudents();
-                case 7 -> System.out.println("Logging out...");
+                case 7 -> { System.out.println("Logging out...");
+                                return; // exit adminMenu method → goes back to Main
+                          }
+
                 default -> System.out.println("Invalid choice.");
             }
-        } while (choice != 4);
+        } while (choice != 7);
     }
 
     // ====================== VIEW ALL COURSES ======================
@@ -115,6 +121,8 @@ public class RegistrationMenu {
 
     // ====================== REGISTER FOR A COURSE ======================
     private void registerForCourse(Scanner sc) {
+        // Show all available courses first
+        showAllCourses();
         System.out.print("Enter Course ID to register: ");
         int courseId = sc.nextInt();
         try {
@@ -138,7 +146,15 @@ public class RegistrationMenu {
         String name = sc.nextLine();
         System.out.print("Max Capacity: ");
         int capacity = sc.nextInt();
-        System.out.print("Department ID: ");
+         System.out.print(
+    "Departments: \n" +
+    "id |          name\n" +
+    "----+------------------------\n" +
+    "1  | Computer Science\n" +
+    "2  | Information Technology\n" +
+    "3  | Electrical Engineering\n" +
+    "Enter department ID: "
+);
         int deptId = sc.nextInt();
 
         Course newCourse = new Course(0, name, capacity, deptId);
@@ -153,7 +169,16 @@ private void addStudent(Scanner sc) {
     String password = sc.nextLine();
     System.out.print("Role: ");
     String role = sc.nextLine();
-    System.out.print("Department ID: ");
+    System.out.print(
+    "Departments: \n" +
+    "id |          name\n" +
+    "----+------------------------\n" +
+    "1  | Computer Science\n" +
+    "2  | Information Technology\n" +
+    "3  | Electrical Engineering\n" +
+    "Enter department ID: "
+);
+
     int deptId = sc.nextInt();
 
     var newStudent = new Student(0, username, password, role, deptId);
@@ -187,6 +212,7 @@ private void showAllStudents() {
 
     // ====================== DELETE COURSE (ADMIN) ======================
     private void deleteCourse(Scanner sc) {
+        showAllCourses();
         System.out.print("Enter Course ID to delete: ");
         int courseId = sc.nextInt();
         if (courseDAO.deleteCourse(courseId)) {

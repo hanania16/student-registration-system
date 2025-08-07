@@ -30,7 +30,7 @@ public class CourseDAO {
         }
         return null;
     }
-
+      
     // Add a new course
     public void addCourse(Course course) {
         String sql = "INSERT INTO courses (course_name, max_capacity, department_id) VALUES (?, ?, ?)";
